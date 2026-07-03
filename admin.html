@@ -2,28 +2,49 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rico Admin</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Chesed Admin</title>
 
     <link rel="stylesheet" href="admin.css">
+
 </head>
 
 <body>
 
-    <h1>Panel Admin</h1>
+<header>
 
-    <button id="guardar-todo" onclick="guardarTodo()">
-        💾 Guardar todo
-    </button>
+    <h1>💎 CHESED ADMIN</h1>
 
-    <button onclick="toggleNuevoProducto()">
-        ➕ Nuevo producto
-    </button>
+    <div class="acciones-superiores">
 
-</div>
+        <button
+            id="guardar-todo"
+            onclick="guardarTodo()">
 
-<div id="nuevo-producto" style="display:none;">
+            💾 Guardar cambios
+
+        </button>
+
+        <button
+            onclick="toggleNuevoProducto()">
+
+            ➕ Nuevo producto
+
+        </button>
+
+    </div>
+
+</header>
+
+<section
+    id="nuevo-producto"
+    style="display:none;">
 
     <h2>Nuevo producto</h2>
 
@@ -31,6 +52,10 @@
         type="text"
         id="nuevo-nombre"
         placeholder="Nombre">
+
+    <textarea
+        id="nuevo-descripcion"
+        placeholder="Descripción"></textarea>
 
     <input
         type="number"
@@ -47,37 +72,64 @@
         id="nuevo-categoria"
         placeholder="Categoría">
 
-    <input
-        type="text"
-        id="nuevo-imagen"
-        placeholder="URL Imagen">
+    <h3>Imágenes</h3>
 
-    <button onclick="crearProducto()">
-        Crear producto
+    <input
+        type="file"
+        id="nuevo-imagen"
+        accept="image/*">
+
+    <button
+        onclick="subirImagenCloudinary()">
+
+        ☁️ Subir imagen
+
     </button>
 
-    </div>
-
-    <div class="alerta-stock">
-    ${alertaStock}
-    </div>
+    <hr>
 
     <input
-    type="text"
-     id="buscador"
-     placeholder="Buscar producto...">
+        type="text"
+        id="nueva-url"
+        placeholder="Pegar URL de una imagen">
+
+    <button
+        onclick="agregarUrlImagen()">
+
+        🔗 Agregar URL
+
+    </button>
+
+    <div id="lista-imagenes"></div>
+
+    <button
+        class="crear-producto"
+        onclick="crearProducto()">
+
+        Crear producto
+
+    </button>
+
+</section>
+
+<section class="herramientas">
+
+    <input
+        type="text"
+        id="buscador"
+        placeholder="🔍 Buscar producto...">
 
     <div id="filtros-admin"></div>
 
-    <div id="productos"></div>
-   
-    <div id="acciones-admin">
+</section>
 
-    <h3>${producto.nombre}</h3>
+<section id="productos"></section>
 
-   
+<script
+    type="module"
+    src="admin.js">
+</script>
 
 </body>
-<script type="module" src="admin.js"></script>
 
 </html>
