@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rico Admin</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <h1>Panel Admin</h1>
+
+    <button id="guardar-todo" onclick="guardarTodo()">
+        💾 Guardar todo
+    </button>
+
+    <button onclick="toggleNuevoProducto()">
+        ➕ Nuevo producto
+    </button>
+
+</div>
+
+<div id="nuevo-producto" style="display:none;">
+
+    <h2>Nuevo producto</h2>
+
+    <input
+        type="text"
+        id="nuevo-nombre"
+        placeholder="Nombre">
+
+    <input
+        type="number"
+        id="nuevo-precio"
+        placeholder="Precio">
+
+    <input
+        type="number"
+        id="nuevo-stock"
+        placeholder="Stock">
+
+    <input
+        type="text"
+        id="nuevo-categoria"
+        placeholder="Categoría">
+
+    <input
+        type="text"
+        id="nuevo-imagen"
+        placeholder="URL Imagen">
+
+    <button onclick="crearProducto()">
+        Crear producto
+    </button>
+
+    </div>
+
+    <div class="alerta-stock">
+    ${alertaStock}
+    </div>
+
+    <input
+    type="text"
+     id="buscador"
+     placeholder="Buscar producto...">
+
+    <div id="filtros-admin"></div>
+
+    <div id="productos"></div>
+   
+    <div id="acciones-admin">
+
+    <h3>${producto.nombre}</h3>
+
+   
+
+</body>
+<script type="module" src="admin.js"></script>
+
+</html>

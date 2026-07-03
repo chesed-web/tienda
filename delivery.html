@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rico Delivery</title>
+
+  <link rel="stylesheet" href="delivery.css">
+</head>
+
+<div id="panel-delivery">
+
+  <input
+    type="text"
+    id="nombre-delivery"
+    placeholder="Tu nombre">
+
+  <button onclick="guardarNombreDelivery()">
+    Guardar
+  </button>
+
+</div>
+
+<body>
+
+  <h1>🚚 Rico Delivery</h1>
+
+  <h2>
+  Pendientes:
+  <span id="contador-pedidos">0</span>
+  </h2>
+
+<h2>📦 Pendientes</h2>
+<div id="pedidos"></div>
+
+<h2>🚚 Mis pedidos</h2>
+<div id="mis-pedidos"></div>
+
+<h2>✅ Entregados</h2>
+<div id="pedidos-entregados"></div>
+  <div id="pedidos"></div>
+
+  <script type="module" src="delivery.js"></script>
+
+</body>
+
+
+
+</html>

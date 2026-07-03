@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: white;
+    padding: 20px;
+}
+
+#productos {
+    display: grid;
+    gap: 15px;
+}
+
+.producto {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    background: #3a3a3a;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#guardar-todo {
+    width: auto;
+    padding: 12px 20px;
+    background: #25D366;
+    color: white;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px;
+    margin-bottom: 10px;
+
+    background: #3a3a3a;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+}
+
+.eliminar {
+    background: #c95d5d;
+    color: white;
+    margin-top: 10px;
+}
+
+#acciones-admin {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#acciones-admin button {
+    width: auto;
+    padding: 12px 20px;
+}
+
+.cabecera-producto {
+    cursor: pointer;
+    padding: 12px;
+    background: #2a2a2a;
+    border-radius: 8px;
+}
+
+.cabecera-producto h3 {
+    margin: 0;
+}
+
+.contenido-producto {
+    margin-top: 10px;
+}
