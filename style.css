@@ -272,40 +272,42 @@ h1,
 }
 @media (max-width: 768px) {
 
-    body {
-        padding: 10px;
-    }
-
-    h1 {
-        font-size: 32px;
-    }
-
-    .subtitulo {
-        font-size: 20px;
-    }
-
-    .precio {
-        font-size: 30px;
-    }
-
-    button {
-        min-height: 55px;
-        font-size: 18px;
-    }
-#detalle-carrito{
-    width: 100%;
-    max-width: 100vw;
-    box-sizing: border-box;
-    overflow-x: hidden;
-
-    max-height: 80vh;
+  body {
     padding: 10px;
-  }
-
-  body{
     overflow-x: hidden;
   }
 
+  h1 {
+    font-size: 32px;
+  }
+
+  .subtitulo {
+    font-size: 18px;
+  }
+
+  button {
+    min-height: 55px;
+    font-size: 18px;
+  }
+
+  /* 🔥 FIX REAL DEL CARRITO */
+  #carrito {
+    right: 10px;
+    top: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  #detalle-carrito {
+    top: 70px;
+    right: 10px;
+    left: 10px;       /* 🔥 clave */
+    width: auto;      /* 🔥 rompe el 370px */
+    max-width: 100vw;
+
+    max-height: 75vh;
+    padding: 12px;
+  }
 
 }
 #filtros {
