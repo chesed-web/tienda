@@ -294,15 +294,12 @@ h1,
     }
 #detalle-carrito{
 
-    left:10px;
+        max-height:80vh;
 
-    right:10px;
+        padding-bottom:30px;
 
-    width:auto;
+    }
 
-    top:75px;
-
-}
 
 }
 #filtros {
@@ -493,48 +490,32 @@ button:hover{
 
 }
 
+
 #detalle-carrito{
 
-    scrollbar-width: thin;
+    max-height:70vh;
 
-    scrollbar-color: #20b7d8 #111827;
+    overflow-y:auto;
+
+    overscroll-behavior:contain;
 
 }
-
 #detalle-carrito::-webkit-scrollbar{
 
-    width:10px;
-
-}
-
-#detalle-carrito::-webkit-scrollbar-track{
-
-    background:#111827;
-
-    border-radius:20px;
+    width:8px;
 
 }
 
 #detalle-carrito::-webkit-scrollbar-thumb{
 
-    background:linear-gradient(
-        180deg,
-        #20b7d8,
-        #1388a3
-    );
+    background:#555;
 
     border-radius:20px;
 
-    border:2px solid #111827;
-
 }
 
-#detalle-carrito::-webkit-scrollbar-thumb:hover{
+#detalle-carrito::-webkit-scrollbar-track{
 
-    background:linear-gradient(
-        180deg,
-        #35d3f2,
-        #20b7d8
-    );
+    background:transparent;
 
 }
