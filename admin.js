@@ -25,6 +25,8 @@ const db = getFirestore(app);
 
 let productos = [];
 
+let imagenesNuevoProducto = [];
+
 async function cargarProductos() {
 
   const snapshot = await getDocs(
@@ -46,6 +48,164 @@ async function cargarProductos() {
 generarCategorias();
 }
 
+function mostrarImagenesProducto(id) {
+
+  const producto =
+    productos.find(p => p.id === id);
+
+  const contenedor =
+    document.getElementById(
+      `imagenes-${id}`
+    );
+
+  contenedor.innerHTML = "";
+
+  if (!producto.imagenes) {
+
+    producto.imagenes = [];
+
+  }
+
+  producto.imagenes.forEach((imagen, indice) => {
+
+    contenedor.innerHTML += `
+
+      <div class="imagen-admin">
+
+        <img
+          src="${imagen}"
+          class="preview-imagen">
+
+        <button
+          onclick="eliminarImagenProducto('${id}',${indice})">
+
+          🗑
+
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+window.subirImagenProducto = async function(id) {
+
+  const archivo =
+    document.getElementById(
+      `archivo-${id}`
+    ).files[0];
+
+  if (!archivo) return;
+
+  const datos = new FormData();
+
+  datos.append("file", archivo);
+  datos.append("upload_preset", "chesed");
+
+  const respuesta = await fetch(
+    "https://api.cloudinary.com/v1_1/nziuiskk/image/upload",
+    {
+      method: "POST",
+      body: datos
+    }
+  );
+
+  const resultado =
+    await respuesta.json();
+
+  const producto =
+    productos.find(
+      p => p.id === id
+    );
+
+  if (!producto.imagenes) {
+
+    producto.imagenes = [];
+
+  }
+
+  producto.imagenes.push(
+    resultado.secure_url
+  );
+
+  await updateDoc(
+    doc(db, "productos", id),
+    {
+      imagenes: producto.imagenes
+    }
+  );
+
+  mostrarImagenesProducto(id);
+
+  document.getElementById(
+    `archivo-${id}`
+  ).value = "";
+
+}
+
+window.agregarUrlProducto = async function(id) {
+
+  const input =
+    document.getElementById(
+      `url-${id}`
+    );
+
+  const url = input.value.trim();
+
+  if (!url) return;
+
+  const producto =
+    productos.find(
+      p => p.id === id
+    );
+
+  if (!producto.imagenes) {
+
+    producto.imagenes = [];
+
+  }
+
+  producto.imagenes.push(url);
+
+  await updateDoc(
+    doc(db, "productos", id),
+    {
+      imagenes: producto.imagenes
+    }
+  );
+
+  mostrarImagenesProducto(id);
+
+  input.value = "";
+
+}
+
+window.eliminarImagenProducto = async function(id, indice) {
+
+  const producto =
+    productos.find(
+      p => p.id === id
+    );
+
+  producto.imagenes.splice(
+    indice,
+    1
+  );
+
+  await updateDoc(
+    doc(db, "productos", id),
+    {
+      imagenes: producto.imagenes
+    }
+  );
+
+  mostrarImagenesProducto(id);
+
+}
+
 function mostrarProductos(lista = productos) {
 
   const contenedor =
@@ -54,6 +214,11 @@ function mostrarProductos(lista = productos) {
   contenedor.innerHTML = "";
 
   lista.forEach(producto => {
+
+const imagenPrincipal =
+  producto.imagenes?.length
+    ? producto.imagenes[0]
+    : producto.imagen || "";
 
     contenedor.innerHTML += `
       <div class="producto">
@@ -101,12 +266,38 @@ function mostrarProductos(lista = productos) {
       </option>
     </select>
 
-    <label>Imagen</label>
+<label>Descripción</label>
 
-    <input
-      type="text"
-      id="imagen-${producto.id}"
-      value="${producto.imagen || ''}">
+<textarea
+  id="descripcion-${producto.id}">${producto.descripcion || ""}</textarea>
+
+    <label>Imágenes</label>
+
+<div id="imagenes-${producto.id}"></div>
+
+<input
+  type="file"
+  id="archivo-${producto.id}"
+  accept="image/*">
+
+<button
+  onclick="subirImagenProducto('${producto.id}')">
+
+  ☁️ Subir imagen
+
+</button>
+
+<input
+  type="text"
+  id="url-${producto.id}"
+  placeholder="https://...">
+
+<button
+  onclick="agregarUrlProducto('${producto.id}')">
+
+  🔗 Agregar URL
+
+</button>
 
     <button
       class="eliminar"
@@ -121,6 +312,9 @@ function mostrarProductos(lista = productos) {
 </div>
 
     `;
+
+mostrarImagenesProducto(producto.id);
+
   });
 
 }
@@ -141,25 +335,28 @@ window.guardarTodo = async function() {
     const categoria =
       document.getElementById(`categoria-${producto.id}`).value;
 
-    const imagen =
-      document.getElementById(`imagen-${producto.id}`).value;
-
+    const descripcion =
+      document.getElementById(`descripcion-${producto.id}`).value;
 
     await updateDoc(
       doc(db, "productos", producto.id),
       {
         precio,
         stock,
-        imagen,
-        categoria
+        categoria,
+        descripcion
       }
     );
 
     producto.precio = precio;
     producto.stock = stock;
+    producto.categoria = categoria;
+    producto.descripcion = descripcion;
+
   }
 
   alert("Todos los cambios fueron guardados");
+
 }
 
 cargarProductos();
@@ -182,33 +379,75 @@ window.crearProducto = async function() {
   const categoria =
     document.getElementById("nuevo-categoria").value;
 
-  const imagen =
-    document.getElementById("nuevo-imagen").value;
-
+  const descripcion =
+  document.getElementById(
+    "nuevo-descripcion"
+  ).value;
+  
+  
   if (!nombre) {
     alert("Ingrese un nombre");
     return;
   }
+
+
+
+
 
   const id = nombre
     .toLowerCase()
     .replaceAll(" ", "");
 
   await setDoc(
-    doc(db, "productos", id),
-    {
-      nombre,
-      precio,
-      stock,
-      categoria,
-      imagen
-    }
-  );
+  doc(db, "productos", id),
+  {
+    nombre,
+    descripcion,
+    precio,
+    stock,
+    categoria,
+    imagenes: imagenesNuevoProducto,
+    activo: true,
+    destacado: false,
+    fechaCreacion: Date.now()
+  }
+);
 
   alert("Producto creado");
 
   cargarProductos();
+
+imagenesNuevoProducto = [];
+
+mostrarImagenesNuevoProducto();
+
+document.getElementById(
+  "nuevo-descripcion"
+).value = "";
+
+document.getElementById(
+  "nuevo-imagen"
+).value = "";
+
+document.getElementById(
+  "nuevo-nombre"
+).value = "";
+
+document.getElementById(
+  "nuevo-precio"
+).value = "";
+
+document.getElementById(
+  "nuevo-stock"
+).value = "";
+
+document.getElementById(
+  "nuevo-categoria"
+).value = "";
+
 }
+
+
 
 window.eliminarProducto = async function(id) {
 
@@ -367,6 +606,110 @@ window.toggleNuevoProducto = function() {
     panel.style.display = "none";
 
   }
+
+}
+
+function mostrarImagenesNuevoProducto() {
+
+  const lista =
+    document.getElementById(
+      "lista-imagenes"
+    );
+
+  lista.innerHTML = "";
+
+  imagenesNuevoProducto.forEach((url, indice) => {
+
+    lista.innerHTML += `
+      <div class="miniatura-imagen">
+
+        <img
+          src="${url}">
+
+        <button
+          onclick="eliminarImagenNueva(${indice})">
+
+          🗑
+
+        </button>
+
+      </div>
+    `;
+
+  });
+
+}
+
+window.eliminarImagenNueva = function(indice) {
+
+  imagenesNuevoProducto.splice(
+    indice,
+    1
+  );
+
+  mostrarImagenesNuevoProducto();
+
+}
+
+window.agregarUrlImagen = function() {
+
+  const url =
+    document.getElementById(
+      "nueva-url"
+    ).value;
+
+  if (!url) return;
+
+  imagenesNuevoProducto.push(url);
+
+  document.getElementById(
+    "nueva-url"
+  ).value = "";
+
+  mostrarImagenesNuevoProducto();
+
+}
+
+window.subirImagenCloudinary = async function() {
+
+  const archivo =
+    document.getElementById(
+      "nuevo-imagen"
+    ).files[0];
+
+  if (!archivo) {
+
+    alert("Seleccione una imagen");
+
+    return;
+
+  }
+
+  const datos = new FormData();
+
+  datos.append("file", archivo);
+  datos.append("upload_preset", "chesed");
+
+  const respuesta = await fetch(
+    "https://api.cloudinary.com/v1_1/nziuiskk/image/upload",
+    {
+      method: "POST",
+      body: datos
+    }
+  );
+
+  const resultado =
+    await respuesta.json();
+
+  imagenesNuevoProducto.push(
+    resultado.secure_url
+  );
+
+  document.getElementById(
+    "nuevo-imagen"
+  ).value = "";
+
+  mostrarImagenesNuevoProducto();
 
 }
 
