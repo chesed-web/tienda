@@ -7,28 +7,22 @@
 </head>
 <body>
 
-    <h1>RICO</h1>
-<p class="subtitulo">Hace tu pedido</p>
+    <h1>Chesed</h1>
+<p class="subtitulo">Sublimaciones</p>
 
-<div id="carrito">
+<div
+    id="carrito"
+    onclick="toggleCarrito()">
     🛒 Carrito (<span id="cantidad-carrito">0</span>)
 </div>
 
-<div
-  class="cabecera-carrito"
-  onclick="toggleCarrito()">
 
-  📋 Tu pedido
-
-  <span id="flecha-carrito">
-    ▼
-  </span>
-
-</div>
 
 <div
-  id="detalle-carrito"
-  style="display:none;">
+    id="detalle-carrito"
+    style="display:none;">
+
+    <h2>Tu pedido</h2>
 
     <ul id="lista-carrito"></ul>
 
@@ -40,11 +34,10 @@
     Pedir por WhatsApp
     </button>
     
-
-<input
-  type="text"
-  id="nombre"
-  placeholder="Tu nombre">
+    <input
+    type="text"
+    id="nombre"
+    placeholder="Tu nombre">
 
     <input
     type="text"
@@ -67,6 +60,7 @@
     🗑 Vaciar carrito
     </button>
 
+    </div>
 </div>
 
 <div id="filtros"></div>
