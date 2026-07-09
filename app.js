@@ -60,6 +60,7 @@ async function cargarProductos() {
   });
 
   mostrarProductos(todosLosProductos);
+  generarCategorias();
 
 }
 
@@ -204,7 +205,6 @@ function mostrarProductos(lista) {
     `;
 
   });
-generarCategorias();
 }
 
 
