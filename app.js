@@ -397,29 +397,35 @@ renderCarrito();
 
 window.toggleCarrito = function () {
 
-  const detalle =
-    document.getElementById("detalle-carrito");
+    const detalle =
+        document.getElementById("detalle-carrito");
 
-  const flecha =
-    document.getElementById("flecha-carrito");
+    const overlay =
+        document.getElementById("overlay-carrito");
 
-  if (detalle.style.display === "none" || detalle.style.display === "") {
+    const flecha =
+        document.getElementById("flecha-carrito");
 
-    detalle.style.display = "block";
+    const abierto =
+        detalle.style.display === "block";
 
-    if (flecha) {
-      flecha.textContent = "▲";
+    if (abierto) {
+
+        detalle.style.display = "none";
+        overlay.style.display = "none";
+
+        if (flecha)
+            flecha.textContent = "▼";
+
+    } else {
+
+        detalle.style.display = "block";
+        overlay.style.display = "block";
+
+        if (flecha)
+            flecha.textContent = "▲";
+
     }
-
-  } else {
-
-    detalle.style.display = "none";
-
-    if (flecha) {
-      flecha.textContent = "▼";
-    }
-
-  }
 
 }
 
@@ -475,3 +481,15 @@ document
     "input",
     aplicarFiltros
   );
+
+  document
+    .getElementById("overlay-carrito")
+    .addEventListener("click", () => {
+
+        document.getElementById("detalle-carrito").style.display = "none";
+
+        document.getElementById("overlay-carrito").style.display = "none";
+
+        document.getElementById("flecha-carrito").textContent = "▼";
+
+});
