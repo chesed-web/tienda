@@ -298,16 +298,36 @@ h1,
     font-size: 14px;
   }
 
-  #detalle-carrito {
-    top: 70px;
-    right: 10px;
-    left: 10px;       /* 🔥 clave */
-    width: auto;      /* 🔥 rompe el 370px */
-    max-width: 100vw;
+  #detalle-carrito{
 
-    max-height: 75vh;
-    padding: 12px;
-  }
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    width:100%;
+    max-width:none;
+
+    height:80vh;
+    max-height:80vh;
+
+    margin:0;
+
+    border-radius:22px 22px 0 0;
+
+    z-index:9999;
+
+    overflow-y:auto;
+
+    padding:20px;
+
+    box-sizing:border-box;
+
+    box-shadow:
+    0 -10px 40px rgba(0,0,0,.55);
+
+}
 
 }
 #filtros {
@@ -338,6 +358,11 @@ h1,
 }
 
 #btn-whatsapp {
+    position:sticky;
+
+    bottom:0;
+
+    z-index:5;
     background: #03dd53;
     color: rgb(0, 0, 0);
     font-weight: bold;
@@ -501,6 +526,8 @@ button:hover{
 
 #detalle-carrito{
 
+z-index:9999;
+
     max-height:70vh;
 
     overflow-y:auto;
@@ -525,5 +552,46 @@ button:hover{
 #detalle-carrito::-webkit-scrollbar-track{
 
     background:transparent;
+
+}
+
+.cabecera-carrito{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:10000;
+
+    background:#1f2937;
+
+    border-radius:12px;
+
+}
+
+.sheet-bar{
+
+    width:60px;
+    height:6px;
+
+    background:#666;
+
+    border-radius:999px;
+
+    margin:0 auto 18px auto;
+
+}
+
+#overlay-carrito{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:none;
+
+    z-index:9998;
 
 }
